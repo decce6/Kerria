@@ -42,7 +42,7 @@ public class NativeImageMixin {
                                   @Local(argsOnly = true, ordinal = 0) boolean blur,
                                   @Local(argsOnly = true, ordinal = 1) boolean clamp,
                                   @Local(argsOnly = true, ordinal = 3) boolean autoClose) {
-        if (!Kerria.isEnabled() || !RenderSystem.isOnRenderThread()) {
+        if (!RenderSystem.isOnRenderThread() || !Kerria.isEnabled()) {
             return true;
         }
 

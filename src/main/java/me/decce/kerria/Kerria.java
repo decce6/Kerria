@@ -21,6 +21,7 @@ public class Kerria {
 	private static ImageCache cache;
 	private static int fastUpload;
 	private static int cached;
+	private static GlCapacityChecker capacity;
 	private static final Platform PLATFORM = createPlatformInstance();
 
 	private static UnifiedBuffer buffer;
@@ -87,7 +88,11 @@ public class Kerria {
 		return PLATFORM;
 	}
 
+	// Must only be called from the render thread - fails if no GL context is present on the current thread
 	public static boolean isEnabled() {
+		if (capacity == null) {
+			capacity = new GlCapacityChecker();
+		}
 		return config.enabled;
 	}
 
