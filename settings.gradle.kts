@@ -78,7 +78,7 @@ stonecutter {
             optionallyInclude("neoforge", "mdg", versions)
         }
         fun forge(versions: Iterable<String>) {
-            optionallyInclude("forge", "mdglegacy", versions)
+            optionallyInclude("forge", "archloom", versions)
         }
 
 //        fabricUnobfuscated (listOf("26.1"))
