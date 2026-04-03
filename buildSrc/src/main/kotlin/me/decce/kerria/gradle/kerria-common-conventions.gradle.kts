@@ -137,7 +137,7 @@ publishMods {
         accessToken = providers.environmentVariable("CURSEFORGE_TOKEN")
         clientRequired = true
         serverRequired = false
-        projectId = ""
+        projectId = "1503432"
         projectSlug = "kerria"
         if (hasProperty("minecraft_supported_from")) {
             minecraftVersionRange {
