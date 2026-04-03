@@ -1,0 +1,15 @@
+{
+  "kerria.enabled": "Enabled",
+  "kerria.enabled.tooltip": "Enables or disables Kerria. Has no effect when OpenGL 4.5 is not supported.",
+  "kerria.fastUpload": "Fast Texture Upload",
+  "kerria.fastUpload.tooltip": "Optimize CPU -> GPU texture upload with persistently mapped buffers and pixel buffer objects",
+  "kerria.cache": "Animated Texture Cache",
+  "kerria.cache.tooltip": "Cache uploaded textures to eliminate CPU -> GPU upload, and transfer sub-textures between GPU memory directly",
+  "kerria.bufferSize": "Buffer Size",
+  "kerria.bufferSize.tooltip": "Specifies the size of the persistently mapped buffer, in KBs",
+  "kerria.minCacheSize": "Minimum Cache Size",
+  "kerria.minCacheSize.tooltip": "Specifies the initial cache size for animated textures",
+  "kerria.maxCacheSize": "Maximum Cache Size",
+  "kerria.maxCacheSize.tooltip": "Specifies the maximum cache size for animated textures"
+
+}

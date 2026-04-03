@@ -1,0 +1,21 @@
+modLoader = "javafml"
+loaderVersion = "[2,)"
+license = "${mod_license}"
+issueTrackerURL = "${mod_issues}"
+
+[[mods]]
+modId = "${modid}"
+displayName = "${mod_name}"
+version = "${mod_version_full}"
+displayURL = "${mod_link}"
+modUrl = "${mod_link}"
+logoFile = "kerria.png"
+authors = "${mod_authors}"
+logoBlur = false
+
+description = '''${mod_description}'''
+
+[[dependencies.${modid}]]
+modId = "minecraft"
+versionRange = "${minecraft_supported_forge}"
+mandatory = true

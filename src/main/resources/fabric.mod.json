@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "${modid}",
+  "name": "${mod_name}",
+  "version": "${mod_version_full}",
+  "authors": ["${mod_authors}"],
+  "contact": {
+    "sources": "${mod_sources}",
+    "issues": "${mod_issues}",
+    "homepage": "${mod_link}"
+  },
+  "description": "${mod_description}",
+  "icon": "kerria.png",
+  "license": "${mod_license}",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "me.decce.kerria.platform.fabric.FabricEntrypoint"
+    ],
+    "sodium:config_api_user": [
+      "me.decce.kerria.compat.sodium.SodiumEntrypoint"
+    ]
+  },
+  "mixins": [
+    "${modid}.mixins.json"
+  ],
+  "depends": {
+    "minecraft": "${minecraft_supported_fabric}",
+    "fabricloader": ">=0.16.0"
+  }
+}
