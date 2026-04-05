@@ -4,7 +4,7 @@ import org.lwjgl.opengl.GL13C;
 
 public class GlStateTracker {
     private static int activeTexture;
-    private static final int[] textures = new int[12];
+    private static final int[] textures = new int[32];
 
     public static void activeTexture(int i) {
         activeTexture = i - GL13C.GL_TEXTURE0;
