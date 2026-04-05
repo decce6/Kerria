@@ -20,5 +20,5 @@ jobs:
         run: ./gradlew --no-daemon buildAndCollect
       - uses: actions/upload-artifact@v6
         with:
-          name: Gnetum
+          name: Kerria
           path: build/libs
