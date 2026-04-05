@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.3
+
+Hotfix for an incompatibility with certain shader packs.
+
 ## 1.0.2
 
 Fixed a crash at startup happening when used with some mods.
