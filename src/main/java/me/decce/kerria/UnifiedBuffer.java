@@ -20,7 +20,7 @@ public class UnifiedBuffer {
     
     public UnifiedBuffer() {
         id = glCreateBuffers();
-        this.size = Kerria.config.bufferSize;
+        this.size = Kerria.getConfig().bufferSize;
         glNamedBufferStorage(id, size, STORAGE_FLAGS);
         buffer = glMapNamedBufferRange(id, 0, size, MAPPING_FLAGS);
         if (buffer == null) {

@@ -52,7 +52,7 @@ public class KerriaConfig {
 
     public static void reset() {
         Kerria.config = createDefault();
-        Kerria.config.save();
+        Kerria.getConfig().save();
     }
 
     public void save() {

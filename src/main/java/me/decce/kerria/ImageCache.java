@@ -12,7 +12,7 @@ public class ImageCache {
     private int cacheSize;
 
     public ImageCache() {
-        cacheSize = Kerria.config.minCacheSize;
+        cacheSize = Kerria.getConfig().minCacheSize;
         this.cache = Caffeine.newBuilder()
                 .executor(Runnable::run)
                 .expireAfterAccess(Duration.ofSeconds(60))
@@ -22,8 +22,8 @@ public class ImageCache {
     }
 
     private void onCacheRemoval(Long info, CachedNativeImage image, RemovalCause cause) {
-        if (cause == RemovalCause.SIZE && cacheSize < Kerria.config.maxCacheSize) {
-            var newSize = Math.min((int) (cacheSize * 1.4), Kerria.config.maxCacheSize);
+        if (cause == RemovalCause.SIZE && cacheSize < Kerria.getConfig().maxCacheSize) {
+            var newSize = Math.min((int) (cacheSize * 1.4), Kerria.getConfig().maxCacheSize);
             cache.policy().eviction().ifPresent(eviction -> {
                 Kerria.LOGGER.info("Increased image cache size from {} to {}", cacheSize, newSize);
                 cacheSize = newSize;
@@ -38,11 +38,11 @@ public class ImageCache {
 
     public void resize() {
         int newSize = this.cacheSize;
-        if (newSize > Kerria.config.maxCacheSize) {
-            newSize = Kerria.config.maxCacheSize;
+        if (newSize > Kerria.getConfig().maxCacheSize) {
+            newSize = Kerria.getConfig().maxCacheSize;
         }
-        if (newSize < Kerria.config.minCacheSize) {
-            newSize = Kerria.config.minCacheSize;
+        if (newSize < Kerria.getConfig().minCacheSize) {
+            newSize = Kerria.getConfig().minCacheSize;
         }
         int finalNewSize = newSize;
         if (this.cacheSize != newSize) {

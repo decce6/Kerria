@@ -47,7 +47,7 @@ public class EmbeddiumPage extends OptionPage {
 
 		@Override
 		public void save() {
-			Kerria.config.save();
+			Kerria.getConfig().save();
 		}
 	};
 	
@@ -63,8 +63,8 @@ public class EmbeddiumPage extends OptionPage {
 				.setImpact(OptionImpact.HIGH)
 				.setControl(TickBoxControl::new)
 				.setBinding((opts, value) -> {
-					Kerria.config.enabled = value;
-				}, opts -> Kerria.config.enabled)
+					Kerria.getConfig().enabled = value;
+				}, opts -> Kerria.getConfig().enabled)
 				.build();
 		general.add(enabledOption);
 		general.add(configure(OptionImpl.createBuilder(boolean.class, STORAGE))
@@ -74,8 +74,8 @@ public class EmbeddiumPage extends OptionPage {
 				.setTooltip(Component.translatable("kerria.fastUpload.tooltip"))
 				.setControl(TickBoxControl::new)
 				.setBinding((opts, value) -> {
-					Kerria.config.fastUpload = value;
-				}, opts -> Kerria.config.fastUpload)
+					Kerria.getConfig().fastUpload = value;
+				}, opts -> Kerria.getConfig().fastUpload)
 				.build());
 		general.add(configure(OptionImpl.createBuilder(boolean.class, STORAGE))
 				.setId(ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "cache"))
@@ -84,8 +84,8 @@ public class EmbeddiumPage extends OptionPage {
 				.setTooltip(Component.translatable("kerria.cache.tooltip"))
 				.setControl(TickBoxControl::new)
 				.setBinding((opts, value) -> {
-					Kerria.config.cache = value;
-				}, opts -> Kerria.config.cache)
+					Kerria.getConfig().cache = value;
+				}, opts -> Kerria.getConfig().cache)
 				.build());
 		general.add(configure(OptionImpl.createBuilder(int.class, STORAGE))
 				.setId(ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "buffer_size"))
@@ -94,9 +94,9 @@ public class EmbeddiumPage extends OptionPage {
 				.setImpact(OptionImpact.VARIES)
 				.setControl(option -> new SliderControl(option, 256, 16 * 1024, 32, ControlValueFormatter.number()))
 				.setBinding((opts, value) -> {
-					Kerria.config.bufferSize = value * 1024;
+					Kerria.getConfig().bufferSize = value * 1024;
 					Kerria.recreateBuffer();
-				}, opts -> Kerria.config.bufferSize / 1024)
+				}, opts -> Kerria.getConfig().bufferSize / 1024)
 				.build());
 		general.add(configure(OptionImpl.createBuilder(int.class, STORAGE))
 				.setId(ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "min_cache_size"))
@@ -105,9 +105,9 @@ public class EmbeddiumPage extends OptionPage {
 				.setImpact(OptionImpact.VARIES)
 				.setControl(option -> new SliderControl(option, 32, 4096, 32, ControlValueFormatter.number()))
 				.setBinding((opts, value) -> {
-					Kerria.config.minCacheSize = value;
+					Kerria.getConfig().minCacheSize = value;
 					Kerria.recreateCache();
-				}, opts -> Kerria.config.minCacheSize)
+				}, opts -> Kerria.getConfig().minCacheSize)
 				.build());
 		general.add(configure(OptionImpl.createBuilder(int.class, STORAGE))
 				.setId(ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "max_cache_size"))
@@ -116,9 +116,9 @@ public class EmbeddiumPage extends OptionPage {
 				.setImpact(OptionImpact.VARIES)
 				.setControl(option -> new SliderControl(option, 8192, 65536 * 16, 32, ControlValueFormatter.number()))
 				.setBinding((opts, value) -> {
-					Kerria.config.maxCacheSize = value;
+					Kerria.getConfig().maxCacheSize = value;
 					Kerria.recreateCache();
-				}, opts -> Kerria.config.maxCacheSize)
+				}, opts -> Kerria.getConfig().maxCacheSize)
 				.build());
 
 		groups.add(general.build());

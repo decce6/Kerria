@@ -16,7 +16,7 @@ import me.decce.kerria.platform.fabric.FabricPlatform;
 public class Kerria {
 	public static final Logger LOGGER = LoggerFactory.getLogger(Constants.MOD_ID);
 
-	public static KerriaConfig config;
+	static KerriaConfig config;
 
 	private static ImageCache cache;
 	private static int fastUpload;
@@ -27,8 +27,6 @@ public class Kerria {
 	private static UnifiedBuffer buffer;
 
 	public static void init() {
-		KerriaConfig.reload();
-		config.save();
 	}
 
 	public static ImageCache cache() {
@@ -93,7 +91,7 @@ public class Kerria {
 		if (capacity == null) {
 			capacity = new GlCapacityChecker();
 		}
-		return config.enabled;
+		return getConfig().enabled;
 	}
 
 	private static Platform createPlatformInstance() {
@@ -104,5 +102,13 @@ public class Kerria {
 		 *///?} forge {
 		/*return new ForgePlatform();
 		*///?}
+	}
+
+	public static KerriaConfig getConfig() {
+		if (config == null) {
+			KerriaConfig.reload();
+			config.save();
+		}
+		return config;
 	}
 }
