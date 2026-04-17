@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.4
+
+Fixed crash at startup when OpenGL 4.5 is not supported.
+
 ## 1.0.3
 
 Hotfix for an incompatibility with certain shader packs.
