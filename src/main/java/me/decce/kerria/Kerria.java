@@ -91,7 +91,7 @@ public class Kerria {
 		if (capacity == null) {
 			capacity = new GlCapacityChecker();
 		}
-		return getConfig().enabled;
+		return getConfig().enabled && capacity.supported;
 	}
 
 	private static Platform createPlatformInstance() {
