@@ -58,7 +58,6 @@ public class UnifiedBuffer {
             kerria$rotate();
         }
         MemoryUtil.memCopy(address, this.address + position, size);
-        // glFlushMappedNamedBufferRange(id, position, size);
         glCopyNamedBufferSubData(id, dest, position, 0, size);
         position += size;
         if (shouldInsertFence) {
@@ -70,7 +69,7 @@ public class UnifiedBuffer {
 
     private void kerria$rotate() {
         waitSync();
-        position = 0; //TODO fence
+        position = 0;
         shouldInsertFence = true;
     }
 }
