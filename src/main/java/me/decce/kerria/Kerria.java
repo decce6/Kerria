@@ -61,11 +61,11 @@ public class Kerria {
 	}
 
 	public static boolean shouldUseFastUpload() {
-		return fastUpload > 0;
+		return fastUpload > 0 && getCapacity().supportsFastUpload;
 	}
 
 	public static boolean shouldUseCache() {
-		return cached > 0;
+		return cached > 0 && getCapacity().supportsTextureCache;
 	}
 
 	public static void recreateBuffer() {
@@ -86,12 +86,15 @@ public class Kerria {
 		return PLATFORM;
 	}
 
-	// Must only be called from the render thread - fails if no GL context is present on the current thread
 	public static boolean isEnabled() {
+		return getConfig().enabled;
+	}
+
+	public static GlCapacityChecker getCapacity() {
 		if (capacity == null) {
 			capacity = new GlCapacityChecker();
 		}
-		return getConfig().enabled && capacity.supported;
+		return capacity;
 	}
 
 	private static Platform createPlatformInstance() {
