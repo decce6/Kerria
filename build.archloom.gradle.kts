@@ -33,6 +33,9 @@ dependencies {
     if (hasProperty("deps.sodium")) {
         compileOnly("${prop("deps.sodium")}")
     }
+    if (hasProperty("deps.sodium_legacy")) {
+        compileOnly("${prop("deps.sodium_legacy")}")
+    }
     if (hasProperty("deps.embeddium")) {
         compileOnly("maven.modrinth:embeddium:${prop("deps.embeddium")}")
     }

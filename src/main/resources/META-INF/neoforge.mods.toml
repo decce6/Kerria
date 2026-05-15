@@ -9,7 +9,7 @@ displayName = "${mod_name}"
 version = "${mod_version_full}"
 displayURL = "${mod_link}"
 modUrl = "${mod_link}"
-logoFile = "kerria.png"
+logoFile = "assets/kerria/kerria.png"
 authors = "${mod_authors}"
 logoBlur = false
 
@@ -22,3 +22,6 @@ config = "${modid}.mixins.json"
 modId = "minecraft"
 versionRange = "${minecraft_supported_forge}"
 type = "required"
+
+[modproperties.${modid}]
+"sodium:config_api_user" = "me.decce.kerria.compat.sodium.SodiumEntrypoint"

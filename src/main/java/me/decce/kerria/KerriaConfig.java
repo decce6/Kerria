@@ -25,9 +25,9 @@ public class KerriaConfig {
     public boolean enabled = true;
     public boolean fastUpload = true;
     public boolean cache = true;
-    public int minCacheSize = 1024;
-    public int maxCacheSize = 65536 * 4;
-    public int bufferSize = 4 * 1024 * 1024; // 4MB
+    public int minCacheSize = Constants.DEFAULT_MIN_CACHE_SIZE;
+    public int maxCacheSize = Constants.DEFAULT_MAX_CACHE_SIZE;
+    public int bufferSize = Constants.DEFAULT_BUFFER_SIZE;
 
     private static KerriaConfig createDefault() {
         return new KerriaConfig();

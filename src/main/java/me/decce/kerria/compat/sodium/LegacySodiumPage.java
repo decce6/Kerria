@@ -1,6 +1,6 @@
 package me.decce.kerria.compat.sodium;
 
-//? if sodium {
+//? if sodium_legacy {
 import com.google.common.collect.ImmutableList;
 import me.decce.kerria.Kerria;
 import net.caffeinemc.mods.sodium.client.gui.options.OptionGroup;
