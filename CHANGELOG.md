@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.5
+
+Improved GL capacity detection, now with support for ARB extensions.
+
 ## 1.0.4
 
 Fixed crash at startup when OpenGL 4.5 is not supported.
