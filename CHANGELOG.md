@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.6
+
+Fixed compatibility with Sodium 0.8+.
+
 ## 1.0.5
 
 Improved GL capacity detection, now with support for ARB extensions.
