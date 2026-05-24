@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.7
+
+Fixed embeddium tainted warning on 1.20.1 Forge.
+
 ## 1.0.6
 
 Fixed compatibility with Sodium 0.8+.
