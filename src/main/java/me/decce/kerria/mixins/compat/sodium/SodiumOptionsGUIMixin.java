@@ -29,6 +29,6 @@ public class SodiumOptionsGUIMixin {
     }
 }
 //? } else {
-/*@Mixin(targets = "net.caffeinemc.mods.sodium.client.gui.SodiumOptionsGUI")
+/*@Mixin(targets = {})
 public class SodiumOptionsGUIMixin {}
 *///? }
