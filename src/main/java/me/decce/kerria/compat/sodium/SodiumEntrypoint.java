@@ -64,31 +64,7 @@ public class SodiumEntrypoint implements ConfigEntryPoint {
 							Kerria.getConfig().bufferSize = value * 1024;
 							Kerria.recreateBuffer();
 						}, () -> Kerria.getConfig().bufferSize / 1024))
-				.addOption(builder.createIntegerOption(ResourceLocation.parse("kerria:min_cache_size"))
-						.setName(Component.translatable("kerria.minCacheSize"))
-						.setTooltip(Component.translatable("kerria.minCacheSize.tooltip"))
-						.setStorageHandler(this.handler)
-						.setDefaultValue(Constants.DEFAULT_MIN_CACHE_SIZE)
-						.setRange(32, 4096, 32)
-						.setValueFormatter(i -> Component.literal(String.valueOf(i)))
-						.setImpact(OptionImpact.VARIES)
-						.setBinding((value) -> {
-							Kerria.getConfig().minCacheSize = value;
-							Kerria.recreateCache();
-						}, () -> Kerria.getConfig().minCacheSize))
-				.addOption(builder.createIntegerOption(ResourceLocation.parse("kerria:max_cache_size"))
-						.setName(Component.translatable("kerria.maxCacheSize"))
-						.setStorageHandler(this.handler)
-						.setDefaultValue(Constants.DEFAULT_MAX_CACHE_SIZE)
-						.setRange(8192, 65536 * 16, 32)
-						.setValueFormatter(i -> Component.literal(String.valueOf(i)))
-						.setTooltip(Component.translatable("kerria.maxCacheSize.tooltip"))
-						.setImpact(OptionImpact.VARIES)
-						.setBinding((value) -> {
-							Kerria.getConfig().maxCacheSize = value;
-							Kerria.recreateCache();
-						}, () -> Kerria.getConfig().maxCacheSize)
-				));
+		);
 	}
 }
 //?}

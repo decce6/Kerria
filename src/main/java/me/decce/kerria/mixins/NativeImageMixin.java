@@ -12,10 +12,12 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import static org.lwjgl.opengl.GL45C.*;
 
-@Mixin(value = NativeImage.class)
+@Mixin(NativeImage.class)
 public class NativeImageMixin {
     @Shadow
     @Final
@@ -23,6 +25,14 @@ public class NativeImageMixin {
     @Shadow
     @Final
     private NativeImage.Format format;
+    @Shadow
+    private long pixels;
+    @Shadow
+    @Final
+    private int width;
+    @Shadow
+    @Final
+    private int height;
     @Unique
     private int kerria$pbo;
 
@@ -42,7 +52,7 @@ public class NativeImageMixin {
                                   @Local(argsOnly = true, ordinal = 0) boolean blur,
                                   @Local(argsOnly = true, ordinal = 1) boolean clamp,
                                   @Local(argsOnly = true, ordinal = 3) boolean autoClose) {
-        if (!RenderSystem.isOnRenderThread() || !Kerria.isEnabled()) {
+        if (!RenderSystem.isOnRenderThread() || !Kerria.isEnabled() || this.pixels == 0L) {
             return true;
         }
 
@@ -73,5 +83,15 @@ public class NativeImageMixin {
             }
         }
         return true;
+    }
+
+    @Inject(method = "close", at = @At("HEAD"))
+    private void kerria$close(CallbackInfo ci) {
+        kerria$removeFromCache();
+    }
+
+    @Unique
+    private void kerria$removeFromCache() {
+        Kerria.cache().remove(this.pixels, this.width, this.height);
     }
 }

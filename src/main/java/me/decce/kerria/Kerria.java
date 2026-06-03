@@ -76,12 +76,6 @@ public class Kerria {
 		buffer = new UnifiedBuffer();
 	}
 
-	public static void recreateCache() {
-		if (cache != null) {
-			cache.resize();
-		}
-	}
-
 	public static Platform platform() {
 		return PLATFORM;
 	}

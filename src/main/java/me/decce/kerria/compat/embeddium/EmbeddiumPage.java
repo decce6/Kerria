@@ -98,28 +98,6 @@ public class EmbeddiumPage extends OptionPage {
 					Kerria.recreateBuffer();
 				}, opts -> Kerria.getConfig().bufferSize / 1024)
 				.build());
-		general.add(configure(OptionImpl.createBuilder(int.class, STORAGE))
-				.setId(ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "min_cache_size"))
-				.setName(Component.translatable("kerria.minCacheSize"))
-				.setTooltip(Component.translatable("kerria.minCacheSize.tooltip"))
-				.setImpact(OptionImpact.VARIES)
-				.setControl(option -> new SliderControl(option, 32, 4096, 32, ControlValueFormatter.number()))
-				.setBinding((opts, value) -> {
-					Kerria.getConfig().minCacheSize = value;
-					Kerria.recreateCache();
-				}, opts -> Kerria.getConfig().minCacheSize)
-				.build());
-		general.add(configure(OptionImpl.createBuilder(int.class, STORAGE))
-				.setId(ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "max_cache_size"))
-				.setName(Component.translatable("kerria.maxCacheSize"))
-				.setTooltip(Component.translatable("kerria.maxCacheSize.tooltip"))
-				.setImpact(OptionImpact.VARIES)
-				.setControl(option -> new SliderControl(option, 8192, 65536 * 16, 32, ControlValueFormatter.number()))
-				.setBinding((opts, value) -> {
-					Kerria.getConfig().maxCacheSize = value;
-					Kerria.recreateCache();
-				}, opts -> Kerria.getConfig().maxCacheSize)
-				.build());
 
 		groups.add(general.build());
 

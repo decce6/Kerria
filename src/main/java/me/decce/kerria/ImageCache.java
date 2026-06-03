@@ -1,68 +1,37 @@
 package me.decce.kerria;
 
-import com.github.benmanes.caffeine.cache.Cache;
-import com.github.benmanes.caffeine.cache.Caffeine;
-import com.github.benmanes.caffeine.cache.RemovalCause;
-import com.mojang.blaze3d.systems.RenderSystem;
+import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
+import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
 
-import java.time.Duration;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class ImageCache {
-    private final Cache<Long, CachedNativeImage> cache;
-    private int cacheSize;
-
-    public ImageCache() {
-        cacheSize = Kerria.getConfig().minCacheSize;
-        this.cache = Caffeine.newBuilder()
-                .executor(Runnable::run)
-                .expireAfterAccess(Duration.ofSeconds(60))
-                .maximumSize(cacheSize)
-                .removalListener(this::onCacheRemoval)
-                .build();
-    }
-
-    private void onCacheRemoval(Long info, CachedNativeImage image, RemovalCause cause) {
-        if (cause == RemovalCause.SIZE && cacheSize < Kerria.getConfig().maxCacheSize) {
-            var newSize = Math.min((int) (cacheSize * 1.4), Kerria.getConfig().maxCacheSize);
-            cache.policy().eviction().ifPresent(eviction -> {
-                Kerria.LOGGER.info("Increased image cache size from {} to {}", cacheSize, newSize);
-                cacheSize = newSize;
-                eviction.setMaximum(newSize);
-            });
-        }
-
-        if (RenderSystem.isOnRenderThread() && image != null) {
-            image.delete();
-        }
-    }
-
-    public void resize() {
-        int newSize = this.cacheSize;
-        if (newSize > Kerria.getConfig().maxCacheSize) {
-            newSize = Kerria.getConfig().maxCacheSize;
-        }
-        if (newSize < Kerria.getConfig().minCacheSize) {
-            newSize = Kerria.getConfig().minCacheSize;
-        }
-        int finalNewSize = newSize;
-        if (this.cacheSize != newSize) {
-            cache.policy().eviction().ifPresent(eviction -> {
-                Kerria.LOGGER.info("Resized image cache from {} to {}", cacheSize, finalNewSize);
-                eviction.setMaximum(finalNewSize);
-                this.cacheSize = finalNewSize;
-            });
-        }
-    }
+    private final Long2ObjectMap<CachedNativeImage> cache = new Long2ObjectOpenHashMap<>();
+    private final ConcurrentLinkedQueue<Long> removalQueue = new ConcurrentLinkedQueue<>();
 
     public CachedNativeImage tryGet(long pixels) {
-        var cached = cache.getIfPresent(pixels);
-        if (cached == null) {
-            return null;
+        Long toRemove;
+        while ((toRemove = removalQueue.poll()) != null) {
+            long toRemoveValue = toRemove.longValue();
+            var cached = cache.getOrDefault(toRemoveValue, null);
+            if (cached != null) {
+                cached.delete();
+            }
+            cache.remove(toRemoveValue);
         }
-        return cached;
+        return cache.getOrDefault(pixels, null);
     }
 
-    public void put(long info, CachedNativeImage cached) {
-        cache.put(info, cached);
+    public void put(long pixels, CachedNativeImage cached) {
+        cache.put(pixels, cached);
+    }
+
+    public void remove(long pixels, long width, long height) {
+        if (pixels != 0L) {
+            long max = pixels + width * height * 4L;
+            for (long realPixels = pixels; realPixels < max; realPixels += 4L) {
+                removalQueue.add(realPixels);
+            }
+        }
     }
 }
