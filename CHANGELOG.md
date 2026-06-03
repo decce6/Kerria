@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.1.0
+
+- Reduced the memory footprint of cached images
+- Removed "Min Cache Size" and "Max Cache Size" option
+- Greatly improved image cache performance in large modpacks
+- Removed Caffeine Cache dependency
+- Fixed "Fast Texture Upload" and "Animated Texture Cache" in-game option not being respected
+
 ## 1.0.7
 
 Fixed embeddium tainted warning on 1.20.1 Forge.
