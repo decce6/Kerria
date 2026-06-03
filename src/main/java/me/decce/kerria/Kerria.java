@@ -61,11 +61,11 @@ public class Kerria {
 	}
 
 	public static boolean shouldUseFastUpload() {
-		return fastUpload > 0 && getCapacity().supportsFastUpload;
+		return fastUpload > 0 && getCapacity().supportsFastUpload && getConfig().fastUpload;
 	}
 
 	public static boolean shouldUseCache() {
-		return cached > 0 && getCapacity().supportsTextureCache;
+		return cached > 0 && getCapacity().supportsTextureCache && getConfig().cache;
 	}
 
 	public static void recreateBuffer() {
