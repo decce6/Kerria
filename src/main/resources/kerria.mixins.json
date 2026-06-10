@@ -8,7 +8,6 @@
     "AnimatedTextureMixin",
     "GlStateManagerMixin",
     "InterpolationDataMixin",
-    "NativeImageAccessor",
     "NativeImageMixin",
     "compat.sodium.SodiumOptionsGUIMixin"
   ],

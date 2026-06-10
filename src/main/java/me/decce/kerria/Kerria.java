@@ -18,7 +18,6 @@ public class Kerria {
 
 	static KerriaConfig config;
 
-	private static ImageCache cache;
 	private static int fastUpload;
 	private static int cached;
 	private static GlCapacityChecker capacity;
@@ -27,14 +26,6 @@ public class Kerria {
 	private static UnifiedBuffer buffer;
 
 	public static void init() {
-	}
-
-	public static ImageCache cache() {
-		if (cache == null) {
-			cache = new ImageCache();
-		}
-		return cache;
-
 	}
 
 	public static UnifiedBuffer buffer() {

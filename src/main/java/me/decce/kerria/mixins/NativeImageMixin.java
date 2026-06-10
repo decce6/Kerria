@@ -35,6 +35,8 @@ public class NativeImageMixin {
     private int height;
     @Unique
     private int kerria$pbo;
+    @Unique
+    private CachedNativeImage kerria$cache;
 
     @Unique
     private int kerria$getPbo() {
@@ -60,13 +62,11 @@ public class NativeImageMixin {
         long currentSize = 4L * width * height;
 
         if (Kerria.shouldUseCache() && (!autoClose && !clamp && !blur && this.format == NativeImage.Format.RGBA)) {
-            var cache = Kerria.cache();
-            var cached = cache.tryGet(realPixels);
-            if (cached == null) {
-                cached = new CachedNativeImage((NativeImage)(Object) this, width, height);
-                cache.put(realPixels, cached);
+            if (kerria$cache == null) {
+                kerria$cache = new CachedNativeImage(this.pixels, this.width, this.height);
             }
-            return !cached.use(xOffset, yOffset, width, height, level);
+            kerria$cache.use(unpackSkipPixels, unpackSkipRows, xOffset, yOffset, width, height, level);
+            return false;
         }
         else if (Kerria.shouldUseFastUpload()) {
             var pbo = kerria$getPbo();
@@ -87,11 +87,9 @@ public class NativeImageMixin {
 
     @Inject(method = "close", at = @At("HEAD"))
     private void kerria$close(CallbackInfo ci) {
-        kerria$removeFromCache();
-    }
-
-    @Unique
-    private void kerria$removeFromCache() {
-        Kerria.cache().remove(this.pixels, this.width, this.height);
+        if (kerria$cache != null) {
+            kerria$cache.delete();
+            kerria$cache = null;
+        }
     }
 }

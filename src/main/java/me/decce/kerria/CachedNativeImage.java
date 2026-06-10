@@ -1,38 +1,29 @@
 package me.decce.kerria;
 
-import com.mojang.blaze3d.platform.NativeImage;
-import me.decce.kerria.mixins.NativeImageAccessor;
+import com.mojang.blaze3d.systems.RenderSystem;
 
 import static org.lwjgl.opengl.GL45C.*;
 
 public class CachedNativeImage {
     private final int glId;
-    private boolean deleted;
 
-    public CachedNativeImage(NativeImage image, int width, int height) {
+    public CachedNativeImage(long pixels, int width, int height) {
         glId = glCreateTextures(GL_TEXTURE_2D);
-        var accessor = (NativeImageAccessor)(Object) image;
-        var pixels = accessor.getPixels();
         glTextureStorage2D(glId, 1, GL_RGBA8, width, height);
         glTextureSubImage2D(glId, 0, 0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
     }
 
     public void delete() {
-        if (!this.deleted) {
+        RenderSystem.recordRenderCall(() -> {
             glDeleteTextures(glId);
-            deleted = true;
-        }
+        });
     }
 
-    public boolean use(int x, int y, int width, int height, int level) {
-        if (this.deleted) {
-            return false;
-        }
+    public void use(int srcX, int srcY, int destX, int destY, int width, int height, int level) {
         var dest = GlStateTracker.getCurrentlyBoundTexture();
         glCopyImageSubData(
-                glId, GL_TEXTURE_2D, 0,0, 0, 0,
-                dest, GL_TEXTURE_2D, level, x, y, 0,
+                glId, GL_TEXTURE_2D, 0, srcX, srcY, 0,
+                dest, GL_TEXTURE_2D, level, destX, destY, 0,
                 width, height, 1);
-        return true;
     }
 }
