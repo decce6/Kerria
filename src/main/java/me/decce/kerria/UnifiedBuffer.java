@@ -55,7 +55,7 @@ public class UnifiedBuffer {
             return false;
         }
         if (position + size > this.size) {
-            kerria$rotate();
+            rotate();
         }
         MemoryUtil.memCopy(address, this.address + position, size);
         glCopyNamedBufferSubData(id, dest, position, 0, size);
@@ -67,7 +67,7 @@ public class UnifiedBuffer {
         return true;
     }
 
-    private void kerria$rotate() {
+    private void rotate() {
         waitSync();
         position = 0;
         shouldInsertFence = true;
