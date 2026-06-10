@@ -91,5 +91,12 @@ public class NativeImageMixin {
             kerria$cache.delete();
             kerria$cache = null;
         }
+        if (kerria$pbo != 0) {
+            int pboToDelete = kerria$pbo;
+            RenderSystem.recordRenderCall(() -> {
+                glDeleteBuffers(pboToDelete);
+            });
+            kerria$pbo = 0;
+        }
     }
 }
