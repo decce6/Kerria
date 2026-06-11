@@ -93,7 +93,7 @@ public class NativeImageMixin {
         }
         if (kerria$pbo != 0) {
             int pboToDelete = kerria$pbo;
-            RenderSystem.recordRenderCall(() -> {
+            Kerria.runOnRenderThread(() -> {
                 glDeleteBuffers(pboToDelete);
             });
             kerria$pbo = 0;

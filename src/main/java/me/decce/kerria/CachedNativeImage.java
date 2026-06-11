@@ -18,7 +18,7 @@ public class CachedNativeImage {
     }
 
     public void delete() {
-        RenderSystem.recordRenderCall(() -> {
+        Kerria.runOnRenderThread(() -> {
             glDeleteTextures(glId);
         });
     }

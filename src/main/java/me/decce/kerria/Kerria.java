@@ -1,5 +1,7 @@
 package me.decce.kerria;
 
+import com.mojang.blaze3d.pipeline.RenderCall;
+import com.mojang.blaze3d.systems.RenderSystem;
 import me.decce.kerria.platform.Platform;
 
 import org.slf4j.Logger;
@@ -65,6 +67,15 @@ public class Kerria {
 		}
 		buffer.delete();
 		buffer = new UnifiedBuffer();
+	}
+
+	public static void runOnRenderThread(Runnable runnable) {
+		if (RenderSystem.isOnRenderThread()) {
+			runnable.run();
+		}
+		else {
+			RenderSystem.recordRenderCall((RenderCall) runnable);
+		}
 	}
 
 	public static Platform platform() {
