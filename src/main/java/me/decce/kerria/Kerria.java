@@ -52,7 +52,7 @@ public class Kerria {
 	}
 
 	public static boolean shouldUseFastUpload() {
-		return fastUpload > 0 && getCapacity().supportsFastUpload && getConfig().fastUpload;
+		return getCapacity().supportsFastUpload && getConfig().fastUpload;
 	}
 
 	public static boolean shouldUseCache() {
