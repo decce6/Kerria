@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.2
+
+This hotfix version temporarily reverts an optimization in 1.2.1 that caused crashes and various other issues.
+
 ## 1.2.1
 
 - Fixed crash on startup on certain GPUs
