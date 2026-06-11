@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.2.1
+
+- Fixed crash on startup on certain GPUs
+- Improved modded performance by unconditionally applying fast texture upload optimization
+
 ## 1.2.0
 
 - Fixed memory usage issues introduced in 1.1.0
