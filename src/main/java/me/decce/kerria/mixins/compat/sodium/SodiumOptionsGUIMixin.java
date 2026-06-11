@@ -2,7 +2,7 @@ package me.decce.kerria.mixins.compat.sodium;
 
 import org.spongepowered.asm.mixin.Mixin;
 
-//? if sodium {
+//? if sodium_legacy || embeddium_legacy {
 import me.decce.kerria.compat.sodium.LegacySodiumPage;
 import net.caffeinemc.mods.sodium.client.gui.SodiumOptionsGUI;
 import net.caffeinemc.mods.sodium.client.gui.options.OptionPage;

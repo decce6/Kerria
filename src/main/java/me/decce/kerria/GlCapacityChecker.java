@@ -17,7 +17,11 @@ public class GlCapacityChecker {
         opengl45 = capacity.OpenGL45;
         copyImage = capacity.GL_ARB_copy_image;
         bufferStorage = capacity.GL_ARB_buffer_storage;
+        //? >=1.20.1 {
         textureStorage = capacity.GL_ARB_texture_storage || capacity.GL_EXT_texture_storage;
+        //? } else {
+        /*textureStorage = capacity.GL_ARB_texture_storage;
+        *///? }
         directStateAccess = capacity.GL_ARB_direct_state_access || capacity.GL_EXT_direct_state_access;
 
         supportsFastUpload = opengl45 || (directStateAccess && bufferStorage);

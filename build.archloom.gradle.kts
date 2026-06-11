@@ -39,6 +39,9 @@ dependencies {
     if (hasProperty("deps.embeddium")) {
         compileOnly("maven.modrinth:embeddium:${prop("deps.embeddium")}")
     }
+    if (hasProperty("deps.embeddium_legacy")) {
+        compileOnly("maven.modrinth:embeddium:${prop("deps.embeddium_legacy")}")
+    }
 }
 
 tasks {

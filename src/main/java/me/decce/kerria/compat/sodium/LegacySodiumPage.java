@@ -1,8 +1,9 @@
 package me.decce.kerria.compat.sodium;
 
-//? if sodium_legacy {
+//? if sodium_legacy || embeddium_legacy {
 import com.google.common.collect.ImmutableList;
 import me.decce.kerria.Kerria;
+import me.decce.kerria.VersionCompatUtils;
 import net.caffeinemc.mods.sodium.client.gui.options.OptionGroup;
 import net.caffeinemc.mods.sodium.client.gui.options.OptionImpact;
 import net.caffeinemc.mods.sodium.client.gui.options.OptionImpl;
@@ -18,7 +19,7 @@ import java.util.List;
 
 public class LegacySodiumPage extends OptionPage {
 	public LegacySodiumPage() {
-		super(Component.literal("Kerria"), groups());
+		super(VersionCompatUtils.literal("Kerria"), groups());
 	}
 
 	private static OptionImpl<?, Boolean> enabledOption;
@@ -41,8 +42,8 @@ public class LegacySodiumPage extends OptionPage {
 		var general = OptionGroup.createBuilder();
 
 		enabledOption = OptionImpl.createBuilder(boolean.class, STORAGE)
-				.setName(Component.translatable("kerria.enabled"))
-				.setTooltip(Component.translatable("kerria.enabled.tooltip"))
+				.setName(VersionCompatUtils.translatable("kerria.enabled"))
+				.setTooltip(VersionCompatUtils.translatable("kerria.enabled.tooltip"))
 				.setImpact(OptionImpact.HIGH)
 				.setControl(TickBoxControl::new)
 				.setBinding((opts, value) -> {
@@ -52,8 +53,8 @@ public class LegacySodiumPage extends OptionPage {
 		general.add(enabledOption);
 		general.add(configure(OptionImpl.createBuilder(boolean.class, STORAGE))
 				.setImpact(OptionImpact.HIGH)
-				.setName(Component.translatable("kerria.fastUpload"))
-				.setTooltip(Component.translatable("kerria.fastUpload.tooltip"))
+				.setName(VersionCompatUtils.translatable("kerria.fastUpload"))
+				.setTooltip(VersionCompatUtils.translatable("kerria.fastUpload.tooltip"))
 				.setControl(TickBoxControl::new)
 				.setBinding((opts, value) -> {
 					Kerria.getConfig().fastUpload = value;
@@ -61,8 +62,8 @@ public class LegacySodiumPage extends OptionPage {
 				.build());
 		general.add(configure(OptionImpl.createBuilder(boolean.class, STORAGE))
 				.setImpact(OptionImpact.HIGH)
-				.setName(Component.translatable("kerria.fastLightTextureUpload"))
-				.setTooltip(Component.translatable("kerria.fastLightTextureUpload.tooltip"))
+				.setName(VersionCompatUtils.translatable("kerria.fastLightTextureUpload"))
+				.setTooltip(VersionCompatUtils.translatable("kerria.fastLightTextureUpload.tooltip"))
 				.setControl(TickBoxControl::new)
 				.setBinding((opts, value) -> {
 					Kerria.getConfig().fastLightTextureUpload = value;
@@ -70,16 +71,16 @@ public class LegacySodiumPage extends OptionPage {
 				.build());
 		general.add(configure(OptionImpl.createBuilder(boolean.class, STORAGE))
 				.setImpact(OptionImpact.HIGH)
-				.setName(Component.translatable("kerria.cache"))
-				.setTooltip(Component.translatable("kerria.cache.tooltip"))
+				.setName(VersionCompatUtils.translatable("kerria.cache"))
+				.setTooltip(VersionCompatUtils.translatable("kerria.cache.tooltip"))
 				.setControl(TickBoxControl::new)
 				.setBinding((opts, value) -> {
 					Kerria.getConfig().cache = value;
 				}, opts -> Kerria.getConfig().cache)
 				.build());
 		general.add(configure(OptionImpl.createBuilder(int.class, STORAGE))
-				.setName(Component.translatable("kerria.bufferSize"))
-				.setTooltip(Component.translatable("kerria.bufferSize.tooltip"))
+				.setName(VersionCompatUtils.translatable("kerria.bufferSize"))
+				.setTooltip(VersionCompatUtils.translatable("kerria.bufferSize.tooltip"))
 				.setImpact(OptionImpact.VARIES)
 				.setControl(option -> new SliderControl(option, 256, 16 * 1024, 32, ControlValueFormatter.number()))
 				.setBinding((opts, value) -> {
