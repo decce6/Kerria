@@ -24,6 +24,7 @@ public class KerriaConfig {
 
     public boolean enabled = true;
     public boolean fastUpload = true;
+    public boolean fastLightTextureUpload = false;
     public boolean cache = true;
     public int bufferSize = Constants.DEFAULT_BUFFER_SIZE;
 

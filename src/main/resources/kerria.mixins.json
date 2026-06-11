@@ -8,6 +8,7 @@
     "AnimatedTextureMixin",
     "GlStateManagerMixin",
     "InterpolationDataMixin",
+    "LightTextureMixin",
     "NativeImageMixin",
     "compat.sodium.SodiumOptionsGUIMixin",
     "compat.xycraft.TickerMixin"

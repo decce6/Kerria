@@ -43,6 +43,16 @@ public class SodiumEntrypoint implements ConfigEntryPoint {
 						.setBinding((value) -> {
 							Kerria.getConfig().fastUpload = value;
 						}, () -> Kerria.getConfig().fastUpload))
+				.addOption(builder.createBooleanOption(ResourceLocation.parse("kerria:fast_light_texture_upload"))
+						.setImpact(OptionImpact.HIGH)
+						.setName(Component.translatable("kerria.fastLightTextureUpload"))
+						.setEnabledProvider(cs -> cs.readBooleanOption(enabledOption), enabledOption)
+						.setStorageHandler(this.handler)
+						.setDefaultValue(false)
+						.setTooltip(Component.translatable("kerria.fastLightTextureUpload.tooltip"))
+						.setBinding((value) -> {
+							Kerria.getConfig().fastLightTextureUpload = value;
+						}, () -> Kerria.getConfig().fastLightTextureUpload))
 				.addOption(builder.createBooleanOption(ResourceLocation.parse("kerria:cache"))
 						.setImpact(OptionImpact.HIGH)
 						.setName(Component.translatable("kerria.cache"))

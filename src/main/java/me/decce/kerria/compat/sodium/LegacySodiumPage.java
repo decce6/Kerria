@@ -61,6 +61,15 @@ public class LegacySodiumPage extends OptionPage {
 				.build());
 		general.add(configure(OptionImpl.createBuilder(boolean.class, STORAGE))
 				.setImpact(OptionImpact.HIGH)
+				.setName(Component.translatable("kerria.fastLightTextureUpload"))
+				.setTooltip(Component.translatable("kerria.fastLightTextureUpload.tooltip"))
+				.setControl(TickBoxControl::new)
+				.setBinding((opts, value) -> {
+					Kerria.getConfig().fastLightTextureUpload = value;
+				}, opts -> Kerria.getConfig().fastLightTextureUpload)
+				.build());
+		general.add(configure(OptionImpl.createBuilder(boolean.class, STORAGE))
+				.setImpact(OptionImpact.HIGH)
 				.setName(Component.translatable("kerria.cache"))
 				.setTooltip(Component.translatable("kerria.cache.tooltip"))
 				.setControl(TickBoxControl::new)

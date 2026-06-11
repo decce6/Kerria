@@ -78,6 +78,16 @@ public class EmbeddiumPage extends OptionPage {
 				}, opts -> Kerria.getConfig().fastUpload)
 				.build());
 		general.add(configure(OptionImpl.createBuilder(boolean.class, STORAGE))
+				.setId(ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "fast_light_texture_upload"))
+				.setImpact(OptionImpact.HIGH)
+				.setName(Component.translatable("kerria.fastLightTextureUpload"))
+				.setTooltip(Component.translatable("kerria.fastLightTextureUpload.tooltip"))
+				.setControl(TickBoxControl::new)
+				.setBinding((opts, value) -> {
+					Kerria.getConfig().fastLightTextureUpload = value;
+				}, opts -> Kerria.getConfig().fastLightTextureUpload)
+				.build());
+		general.add(configure(OptionImpl.createBuilder(boolean.class, STORAGE))
 				.setId(ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "cache"))
 				.setImpact(OptionImpact.HIGH)
 				.setName(Component.translatable("kerria.cache"))
