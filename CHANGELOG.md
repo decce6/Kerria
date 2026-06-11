@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.2.0
+
+- Fixed memory usage issues introduced in 1.1.0
+- Improved memory footprint: cache is now created on a per-image rather than per-frame basis
+- Significantly improved image cache performance (eliminated hash table lookup)
+- Fixed a minor GPU memory leak due to pixel buffer objects not released
+
 ## 1.1.0
 
 - Reduced the memory footprint of cached images
