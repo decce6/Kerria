@@ -21,6 +21,9 @@ dependencies {
     if (hasProperty("deps.embeddium")) {
         compileOnly("maven.modrinth:embeddium:${prop("deps.embeddium")}")
     }
+    if (hasProperty("deps.xycraft")) {
+        compileOnly("curse.maven:xycraft-653786:${prop("deps.xycraft")}")
+    }
 }
 
 val jijShadowJar = tasks.register<Jar>("jijShadowJar") {

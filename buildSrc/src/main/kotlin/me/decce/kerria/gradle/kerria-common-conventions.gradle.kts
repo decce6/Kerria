@@ -89,6 +89,7 @@ repositories {
     }
     exclusiveMaven("CaffeineMC", "net.caffeinemc", "https://maven.caffeinemc.net/releases")
     exclusiveMaven("Modrinth Maven", "maven.modrinth", "https://api.modrinth.com/maven")
+    exclusiveMaven("Curse Maven", "curse.maven", "https://cursemaven.com")
 }
 
 dependencies {

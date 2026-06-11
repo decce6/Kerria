@@ -9,6 +9,7 @@ stonecutter parameters {
     constants["sodium"] = node.project.hasProperty("deps.sodium")
     constants["sodium_legacy"] = node.project.hasProperty("deps.sodium_legacy")
     constants["embeddium"] = node.project.hasProperty("deps.embeddium")
+    constants["xycraft"] = node.project.hasProperty("deps.xycraft")
     swaps["mod_version_short"] = "\"" + property("mod_version") + "\";"
     replacements.string(current.parsed >= "1.21.11") {
         replace("com.mojang.blaze3d.platform.GlStateManager", "com.mojang.blaze3d.opengl.GlStateManager")

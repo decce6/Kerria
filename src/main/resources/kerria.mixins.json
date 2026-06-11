@@ -9,7 +9,8 @@
     "GlStateManagerMixin",
     "InterpolationDataMixin",
     "NativeImageMixin",
-    "compat.sodium.SodiumOptionsGUIMixin"
+    "compat.sodium.SodiumOptionsGUIMixin",
+    "compat.xycraft.TickerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

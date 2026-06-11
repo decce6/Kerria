@@ -15,10 +15,10 @@ public class NeoforgeEntrypoint {
 		Kerria.init();
 
 		//? embeddium {
-        if (ModList.get().isLoaded("embeddium")) {
+        /^if (ModList.get().isLoaded("embeddium")) {
             org.embeddedt.embeddium.api.OptionGUIConstructionEvent.BUS.addListener(EmbeddiumCompat::onSodiumPagesRegister);
         }
-        //? }
+        ^///? }
 	}
 }
 *///?}
