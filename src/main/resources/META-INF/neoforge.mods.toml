@@ -2,6 +2,7 @@ modLoader = "javafml"
 loaderVersion = "[2,)"
 license = "${mod_license}"
 issueTrackerURL = "${mod_issues}"
+clientSideOnly = true
 
 [[mods]]
 modId = "${modid}"
