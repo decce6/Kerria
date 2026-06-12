@@ -2,7 +2,7 @@
   "required": true,
   "package": "me.decce.kerria.mixins",
   "plugin": "me.decce.kerria.KerriaMixinPlugin",
-  "compatibilityLevel": "JAVA_17",
+  "compatibilityLevel": "JAVA_8",
   "minVersion": "0.8",
   "refmap": "kerria.mixins.refmap.json",
   "client": [

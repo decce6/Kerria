@@ -22,7 +22,8 @@ val javaVersion =
     if (stonecutter.eval(mcVersion, ">=26")) 25
     else if (stonecutter.eval(mcVersion, ">=1.20.5")) 21
     else if (stonecutter.eval(mcVersion, ">=1.18")) 17
-    else 17 // TODO: maybe support Java 8 for 1.16?
+    else 8
+val useJabel = stonecutter.eval(mcVersion, "<1.18")
 
 java {
     sourceCompatibility = JavaVersion.toVersion(javaVersion)
@@ -92,7 +93,20 @@ repositories {
     exclusiveMaven("Curse Maven", "curse.maven", "https://cursemaven.com")
 }
 
-dependencies {
+
+if (useJabel) {
+    dependencies {
+        annotationProcessor ("com.github.bsideup.jabel:jabel-javac-plugin:0.4.2")
+        compileOnly ("com.github.bsideup.jabel:jabel-javac-plugin:0.4.2")
+    }
+
+    tasks.named<JavaCompile>("compileJava") {
+        sourceCompatibility = JavaVersion.VERSION_16.toString()
+        options.release = 8
+        javaCompiler = javaToolchains.compilerFor {
+            languageVersion = JavaLanguageVersion.of(16)
+        }
+    }
 }
 
 tasks {
@@ -110,7 +124,7 @@ tasks {
             put("mod_version_full", fullModVersion())
             put("minecraft_supported_fabric", supportedVersionFabric())
             put("minecraft_supported_forge", supportedVersionForge())
-            put("java_version", javaVersion)
+            put("java_version", 8)
         }
         inputs.property("propMap", propMap)
         filesMatching(listOf("**/fabric.mod.json", "**/neoforge.mods.toml", "**/mods.toml", "**/pack.mcmeta")) {

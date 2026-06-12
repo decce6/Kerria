@@ -4,11 +4,13 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
+@SuppressWarnings("ReadWriteStringCanBeUsed") // For Java8 compatibility
 public class KerriaConfig {
     private static final Path PATH;
 
@@ -35,7 +37,7 @@ public class KerriaConfig {
     private static KerriaConfig load() {
         try {
             if (!Files.exists(PATH)) return createDefault();
-            String json = Files.readString(PATH);
+            String json = new String(Files.readAllBytes(PATH), StandardCharsets.UTF_8);
             Gson gson = new Gson();
             KerriaConfig config = gson.fromJson(json, KerriaConfig.class);
             return config;
@@ -58,7 +60,7 @@ public class KerriaConfig {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String json = gson.toJson(this);
         try {
-            Files.writeString(PATH, json, StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING);
+            Files.write(PATH, json.getBytes(StandardCharsets.UTF_8), StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING);
         } catch (IOException e) {
             Kerria.LOGGER.error("Failed to save config file!", e);
         }
