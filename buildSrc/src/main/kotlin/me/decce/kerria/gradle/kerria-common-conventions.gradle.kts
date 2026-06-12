@@ -104,7 +104,7 @@ if (useJabel) {
         sourceCompatibility = JavaVersion.VERSION_16.toString()
         options.release = 8
         javaCompiler = javaToolchains.compilerFor {
-            languageVersion = JavaLanguageVersion.of(16)
+            languageVersion = JavaLanguageVersion.of(17)
         }
     }
 }
