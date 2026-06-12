@@ -99,8 +99,6 @@ tasks {
     named<ShadowJar>("shadowJar") {
         archiveClassifier = "fat"
         configurations = listOf(shade)
-        relocate("com.github.benmanes.caffeine", "me.decce.kerria.shadow.caffeine")
-        from(layout.settingsDirectory.dir("thirdparty/licenses"))
     }
 
     withType<ProcessResources> {
