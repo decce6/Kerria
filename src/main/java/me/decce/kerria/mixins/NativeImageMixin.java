@@ -47,7 +47,11 @@ public class NativeImageMixin {
         return kerria$pbo;
     }
 
-    @WrapWithCondition(method = "_upload", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/platform/GlStateManager;_texSubImage2D(IIIIIIIIJ)V"))
+    @WrapWithCondition(method = "_upload",
+            at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/platform/GlStateManager;_texSubImage2D(IIIIIIIIJ)V"
+                    //? >=1.20.1
+                    , remap = false
+    ))
     private boolean kerria$upload(int target, int level, int xOffset, int yOffset, int width, int height, int format, int type, long pixels,
                                   @Local(argsOnly = true, ordinal = 3) int unpackSkipPixels,
                                   @Local(argsOnly = true, ordinal = 4) int unpackSkipRows,
