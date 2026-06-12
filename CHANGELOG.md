@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.3.0
+
+- Fixed performance degradation with XyCraft mod
+- Added Fast Light Texture Upload optimization
+- Backported to 1.19.2, 1.18.2 and 1.16.5
+
 ## 1.2.2
 
 This hotfix version temporarily reverts an optimization in 1.2.1 that caused crashes and various other issues.
