@@ -4,8 +4,8 @@ import com.mojang.blaze3d.pipeline.RenderCall;
 import com.mojang.blaze3d.systems.RenderSystem;
 import me.decce.kerria.platform.Platform;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 //? fabric {
 import me.decce.kerria.platform.fabric.FabricPlatform;
@@ -16,7 +16,7 @@ import me.decce.kerria.platform.fabric.FabricPlatform;
 *///? }
 
 public class Kerria {
-	public static final Logger LOGGER = LoggerFactory.getLogger(Constants.MOD_ID);
+	public static final Logger LOGGER = LogManager.getLogger();
 
 	static KerriaConfig config;
 

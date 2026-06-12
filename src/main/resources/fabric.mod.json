@@ -10,7 +10,7 @@
     "homepage": "${mod_link}"
   },
   "description": "${mod_description}",
-  "icon": "assets/kerria/kerria.png",
+  "icon": "kerria.png",
   "license": "${mod_license}",
   "environment": "client",
   "entrypoints": {

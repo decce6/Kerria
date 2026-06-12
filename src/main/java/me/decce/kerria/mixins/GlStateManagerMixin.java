@@ -10,7 +10,10 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(value = GlStateManager.class, remap = false)
+@Mixin(value = GlStateManager.class
+        //? >=1.20.1
+        , remap = false
+)
 public class GlStateManagerMixin {
     @Inject(method = "_activeTexture", at = @At("RETURN"))
     private static void kerria$_activeTexture(int unit, CallbackInfo ci) {

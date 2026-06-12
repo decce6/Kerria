@@ -85,7 +85,7 @@ public class NativeImageMixin {
         return true;
     }
 
-    @Inject(method = "close", at = @At("HEAD"))
+    @Inject(method = "close", at = @At("HEAD"), remap = false)
     private void kerria$close(CallbackInfo ci) {
         if (kerria$cache != null) {
             kerria$cache.delete();

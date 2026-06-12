@@ -6,7 +6,11 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+//? >=1.19.3 {
 @Mixin(targets = "net.minecraft.client.renderer.texture.SpriteContents$InterpolationData")
+//? } else {
+/*@Mixin(targets = "net.minecraft.client.renderer.texture.TextureAtlasSprite$InterpolationData")
+*///? }
 public class InterpolationDataMixin {
     @Inject(method = "uploadInterpolatedFrame", at = @At("HEAD"))
     private void kerria$upload$head(CallbackInfo ci) {

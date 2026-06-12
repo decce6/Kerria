@@ -31,16 +31,23 @@ dependencies {
     }
 
     if (hasProperty("deps.sodium")) {
-        compileOnly("${prop("deps.sodium")}")
+        modCompileOnly("${prop("deps.sodium")}")
     }
     if (hasProperty("deps.sodium_legacy")) {
-        compileOnly("${prop("deps.sodium_legacy")}")
+        modCompileOnly("${prop("deps.sodium_legacy")}")
     }
     if (hasProperty("deps.embeddium")) {
-        compileOnly("maven.modrinth:embeddium:${prop("deps.embeddium")}")
+        modCompileOnly("maven.modrinth:embeddium:${prop("deps.embeddium")}")
     }
     if (hasProperty("deps.embeddium_legacy")) {
-        compileOnly("maven.modrinth:embeddium:${prop("deps.embeddium_legacy")}")
+        modCompileOnly("maven.modrinth:embeddium:${prop("deps.embeddium_legacy")}")
+    }
+}
+
+loom {
+    mixin {
+        add(sourceSets["main"], "kerria.mixins.refmap.json")
+        useLegacyMixinAp = true
     }
 }
 
@@ -51,7 +58,8 @@ tasks {
 
     named<ShadowJar>("shadowJar") {
         if (!jijMixinExtras) {
-            relocate("com.llamalad7.mixinextras", "me.decce.$modid)}.shadow.mixinextras")
+            relocate("com.llamalad7.mixinextras", "me.decce.$modid.shadow.mixinextras")
+            mergeServiceFiles()
         }
     }
 

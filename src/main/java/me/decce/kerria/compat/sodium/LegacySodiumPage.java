@@ -12,14 +12,18 @@ import net.caffeinemc.mods.sodium.client.gui.options.control.ControlValueFormatt
 import net.caffeinemc.mods.sodium.client.gui.options.control.SliderControl;
 import net.caffeinemc.mods.sodium.client.gui.options.control.TickBoxControl;
 import net.caffeinemc.mods.sodium.client.gui.options.storage.OptionStorage;
-import net.minecraft.network.chat.Component;
+import net.minecraft.client.resources.language.I18n;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class LegacySodiumPage extends OptionPage {
 	public LegacySodiumPage() {
+		//? 1.16.5 && sodium_legacy {
+		/*super("Kerria", groups());
+		*///? } else {
 		super(VersionCompatUtils.literal("Kerria"), groups());
+		//? }
 	}
 
 	private static OptionImpl<?, Boolean> enabledOption;
@@ -42,8 +46,13 @@ public class LegacySodiumPage extends OptionPage {
 		var general = OptionGroup.createBuilder();
 
 		enabledOption = OptionImpl.createBuilder(boolean.class, STORAGE)
+				//? 1.16.5 && sodium_legacy {
+				/*.setName(I18n.get("kerria.enabled"))
+				.setTooltip(I18n.get("kerria.enabled.tooltip"))
+				*///? } else {
 				.setName(VersionCompatUtils.translatable("kerria.enabled"))
 				.setTooltip(VersionCompatUtils.translatable("kerria.enabled.tooltip"))
+				//? }
 				.setImpact(OptionImpact.HIGH)
 				.setControl(TickBoxControl::new)
 				.setBinding((opts, value) -> {
@@ -51,36 +60,28 @@ public class LegacySodiumPage extends OptionPage {
 				}, opts -> Kerria.getConfig().enabled)
 				.build();
 		general.add(enabledOption);
-		general.add(configure(OptionImpl.createBuilder(boolean.class, STORAGE))
+		general.add(configure(OptionImpl.createBuilder(boolean.class, STORAGE), "kerria.fastUpload")
 				.setImpact(OptionImpact.HIGH)
-				.setName(VersionCompatUtils.translatable("kerria.fastUpload"))
-				.setTooltip(VersionCompatUtils.translatable("kerria.fastUpload.tooltip"))
 				.setControl(TickBoxControl::new)
 				.setBinding((opts, value) -> {
 					Kerria.getConfig().fastUpload = value;
 				}, opts -> Kerria.getConfig().fastUpload)
 				.build());
-		general.add(configure(OptionImpl.createBuilder(boolean.class, STORAGE))
+		general.add(configure(OptionImpl.createBuilder(boolean.class, STORAGE), "kerria.fastLightTextureUpload")
 				.setImpact(OptionImpact.HIGH)
-				.setName(VersionCompatUtils.translatable("kerria.fastLightTextureUpload"))
-				.setTooltip(VersionCompatUtils.translatable("kerria.fastLightTextureUpload.tooltip"))
 				.setControl(TickBoxControl::new)
 				.setBinding((opts, value) -> {
 					Kerria.getConfig().fastLightTextureUpload = value;
 				}, opts -> Kerria.getConfig().fastLightTextureUpload)
 				.build());
-		general.add(configure(OptionImpl.createBuilder(boolean.class, STORAGE))
+		general.add(configure(OptionImpl.createBuilder(boolean.class, STORAGE), "kerria.cache")
 				.setImpact(OptionImpact.HIGH)
-				.setName(VersionCompatUtils.translatable("kerria.cache"))
-				.setTooltip(VersionCompatUtils.translatable("kerria.cache.tooltip"))
 				.setControl(TickBoxControl::new)
 				.setBinding((opts, value) -> {
 					Kerria.getConfig().cache = value;
 				}, opts -> Kerria.getConfig().cache)
 				.build());
-		general.add(configure(OptionImpl.createBuilder(int.class, STORAGE))
-				.setName(VersionCompatUtils.translatable("kerria.bufferSize"))
-				.setTooltip(VersionCompatUtils.translatable("kerria.bufferSize.tooltip"))
+		general.add(configure(OptionImpl.createBuilder(int.class, STORAGE), "kerria.bufferSize")
 				.setImpact(OptionImpact.VARIES)
 				.setControl(option -> new SliderControl(option, 256, 16 * 1024, 32, ControlValueFormatter.number()))
 				.setBinding((opts, value) -> {
@@ -94,9 +95,16 @@ public class LegacySodiumPage extends OptionPage {
 		return ImmutableList.copyOf(groups);
 	}
 	
-	private static <T, R> OptionImpl.Builder<T, R> configure(OptionImpl.Builder<T, R> builder) {
+	private static <T, R> OptionImpl.Builder<T, R> configure(OptionImpl.Builder<T, R> builder, String name) {
 		//? >=1.21.1 {
 		builder.setEnabled(enabledOption::getValue);
+		//? }
+		//? 1.16.5 && sodium_legacy {
+		/*builder.setName(I18n.get(name));
+		builder.setTooltip(I18n.get(name + ".tooltip"));
+		*///? } else {
+		builder.setName(VersionCompatUtils.translatable(name));
+		builder.setTooltip(VersionCompatUtils.translatable(name + ".tooltip"));
 		//? }
 		return builder;
 	}
