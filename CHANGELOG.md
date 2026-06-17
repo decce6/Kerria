@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.1
+
+- [1.19.2-fabric] Fixed crash when opening Video Settings screen
+
 ## 1.3.0
 
 - Fixed performance degradation with XyCraft mod
