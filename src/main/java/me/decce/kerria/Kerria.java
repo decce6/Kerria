@@ -69,12 +69,12 @@ public class Kerria {
 		buffer = new UnifiedBuffer();
 	}
 
-	public static void runOnRenderThread(Runnable runnable) {
+	public static void runOnRenderThread(RenderCall renderCall) {
 		if (RenderSystem.isOnRenderThread()) {
-			runnable.run();
+			renderCall.execute();
 		}
 		else {
-			RenderSystem.recordRenderCall((RenderCall) runnable);
+			RenderSystem.recordRenderCall(renderCall);
 		}
 	}
 

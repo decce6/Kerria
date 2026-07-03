@@ -6,7 +6,9 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.platform.NativeImage;
 import com.mojang.blaze3d.systems.RenderSystem;
 import me.decce.kerria.CachedNativeImage;
+import me.decce.kerria.DeferredRenderCall;
 import me.decce.kerria.Kerria;
+import org.lwjgl.opengl.GL45C;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -97,9 +99,7 @@ public class NativeImageMixin {
         }
         if (kerria$pbo != 0) {
             int pboToDelete = kerria$pbo;
-            Kerria.runOnRenderThread(() -> {
-                glDeleteBuffers(pboToDelete);
-            });
+            Kerria.runOnRenderThread(new DeferredRenderCall<>(GL45C::glDeleteBuffers, pboToDelete));
             kerria$pbo = 0;
         }
     }

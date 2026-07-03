@@ -1,7 +1,7 @@
 package me.decce.kerria;
 
 import com.mojang.blaze3d.platform.GlStateManager;
-import com.mojang.blaze3d.systems.RenderSystem;
+import org.lwjgl.opengl.GL45C;
 
 import static org.lwjgl.opengl.GL45C.*;
 
@@ -18,9 +18,7 @@ public class CachedNativeImage {
     }
 
     public void delete() {
-        Kerria.runOnRenderThread(() -> {
-            glDeleteTextures(glId);
-        });
+        Kerria.runOnRenderThread(new DeferredRenderCall<>(GL45C::glDeleteTextures, glId));
     }
 
     public void use(int srcX, int srcY, int destX, int destY, int width, int height, int level) {
