@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.2
+
+Fixed "Resource Reload failed" errors.
+
 ## 1.3.1
 
 - [1.19.2-fabric] Fixed crash when opening Video Settings screen
