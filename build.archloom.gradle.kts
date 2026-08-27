@@ -42,6 +42,9 @@ dependencies {
     if (hasProperty("deps.embeddium_legacy")) {
         modCompileOnly("maven.modrinth:embeddium:${prop("deps.embeddium_legacy")}")
     }
+    if (hasProperty("deps.xycraft")) {
+        compileOnly("curse.maven:xycraft-653786:${prop("deps.xycraft")}")
+    }
 }
 
 loom {
