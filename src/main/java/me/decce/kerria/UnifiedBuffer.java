@@ -4,6 +4,9 @@ import org.lwjgl.system.MemoryUtil;
 
 import java.nio.ByteBuffer;
 
+import static org.lwjgl.opengl.ARBBufferStorage.glNamedBufferStorageEXT;
+import static org.lwjgl.opengl.EXTDirectStateAccess.glMapNamedBufferRangeEXT;
+import static org.lwjgl.opengl.EXTDirectStateAccess.glNamedCopyBufferSubDataEXT;
 import static org.lwjgl.opengl.GL45C.*;
 
 public class UnifiedBuffer {
@@ -19,10 +22,16 @@ public class UnifiedBuffer {
     private boolean shouldInsertFence;
     
     public UnifiedBuffer() {
-        id = glCreateBuffers();
         this.size = Kerria.getConfig().bufferSize;
-        glNamedBufferStorage(id, size, STORAGE_FLAGS);
-        buffer = glMapNamedBufferRange(id, 0, size, MAPPING_FLAGS);
+        if (Kerria.getCapacity().useExtDirectStateAccess) {
+            id = glGenBuffers();
+            glNamedBufferStorageEXT(id, size, STORAGE_FLAGS);
+            buffer = glMapNamedBufferRangeEXT(id, 0, size, MAPPING_FLAGS);
+        } else {
+            id = glCreateBuffers();
+            glNamedBufferStorage(id, size, STORAGE_FLAGS);
+            buffer = glMapNamedBufferRange(id, 0, size, MAPPING_FLAGS);
+        }
         if (buffer == null) {
             throw new RuntimeException("Failed to map persistent buffer");
         }
@@ -58,7 +67,11 @@ public class UnifiedBuffer {
             rotate();
         }
         MemoryUtil.memCopy(address, this.address + position, size);
-        glCopyNamedBufferSubData(id, dest, position, 0, size);
+        if (Kerria.getCapacity().useExtDirectStateAccess) {
+            glNamedCopyBufferSubDataEXT(id, dest, position, 0, size);
+        } else {
+            glCopyNamedBufferSubData(id, dest, position, 0, size);
+        }
         position += size;
         if (shouldInsertFence) {
             fence = glFenceSync(GL_SYNC_GPU_COMMANDS_COMPLETE, 0);

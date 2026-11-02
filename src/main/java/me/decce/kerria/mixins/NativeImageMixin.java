@@ -17,6 +17,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import static org.lwjgl.opengl.EXTDirectStateAccess.glNamedBufferDataEXT;
 import static org.lwjgl.opengl.GL45C.*;
 
 @Mixin(NativeImage.class)
@@ -43,8 +44,13 @@ public class NativeImageMixin {
     @Unique
     private int kerria$getPbo() {
         if (kerria$pbo == 0) {
-            kerria$pbo = glCreateBuffers();
-            glNamedBufferData(kerria$pbo, this.size, GL_DYNAMIC_COPY);
+            if (Kerria.getCapacity().useExtDirectStateAccess) {
+                kerria$pbo = glGenBuffers();
+                glNamedBufferDataEXT(kerria$pbo, this.size, GL_DYNAMIC_COPY);
+            } else {
+                kerria$pbo = glCreateBuffers();
+                glNamedBufferData(kerria$pbo, this.size, GL_DYNAMIC_COPY);
+            }
         }
         return kerria$pbo;
     }
