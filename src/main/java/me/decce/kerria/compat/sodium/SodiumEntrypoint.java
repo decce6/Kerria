@@ -69,8 +69,8 @@ public class SodiumEntrypoint implements ConfigEntryPoint {
 						.setEnabledProvider(cs -> cs.readBooleanOption(enabledOption), enabledOption)
 						.setStorageHandler(this.handler)
 						.setImpact(OptionImpact.VARIES)
-						.setDefaultValue(Constants.DEFAULT_BUFFER_SIZE)
-						.setRange(256, 16 * 1024, 32)
+						.setDefaultValue(Constants.DEFAULT_BUFFER_SIZE / 1024)
+						.setRange(Constants.MINIMUM_BUFFER_SIZE / 1024, Constants.MAXIMUM_BUFFER_SIZE / 1024, 64)
 						.setValueFormatter(i -> Component.literal(String.valueOf(i)))
 						.setBinding((value) -> {
 							Kerria.getConfig().bufferSize = value * 1024;

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 //? <=1.20.1 {
-import org.embeddedt.embeddium.client.gui.options.OptionIdentifier;
+/^import org.embeddedt.embeddium.client.gui.options.OptionIdentifier;
 import net.caffeinemc.mods.sodium.client.gui.options.OptionGroup;
 import net.caffeinemc.mods.sodium.client.gui.options.OptionImpact;
 import net.caffeinemc.mods.sodium.client.gui.options.OptionImpl;
@@ -20,8 +20,8 @@ import net.caffeinemc.mods.sodium.client.gui.options.control.ControlValueFormatt
 import net.caffeinemc.mods.sodium.client.gui.options.control.SliderControl;
 import net.caffeinemc.mods.sodium.client.gui.options.control.TickBoxControl;
 import net.caffeinemc.mods.sodium.client.gui.options.storage.OptionStorage;
-//? } else {
-/^import org.embeddedt.embeddium.api.options.OptionIdentifier;
+^///? } else {
+import org.embeddedt.embeddium.api.options.OptionIdentifier;
 import org.embeddedt.embeddium.api.options.control.ControlValueFormatter;
 import org.embeddedt.embeddium.api.options.control.SliderControl;
 import org.embeddedt.embeddium.api.options.control.TickBoxControl;
@@ -30,7 +30,7 @@ import org.embeddedt.embeddium.api.options.structure.OptionImpact;
 import org.embeddedt.embeddium.api.options.structure.OptionImpl;
 import org.embeddedt.embeddium.api.options.structure.OptionPage;
 import org.embeddedt.embeddium.api.options.structure.OptionStorage;
-^///? }
+//? }
 
 public class EmbeddiumPage extends OptionPage {
 	public EmbeddiumPage() {
@@ -102,7 +102,9 @@ public class EmbeddiumPage extends OptionPage {
 				.setName(Component.translatable("kerria.bufferSize"))
 				.setTooltip(Component.translatable("kerria.bufferSize.tooltip"))
 				.setImpact(OptionImpact.VARIES)
-				.setControl(option -> new SliderControl(option, 256, 16 * 1024, 32, ControlValueFormatter.number()))
+				.setControl(option ->
+						new SliderControl(option, Constants.MINIMUM_BUFFER_SIZE / 1024, Constants.MAXIMUM_BUFFER_SIZE / 1024, 64, ControlValueFormatter.number())
+				)
 				.setBinding((opts, value) -> {
 					Kerria.getConfig().bufferSize = value * 1024;
 					Kerria.recreateBuffer();
