@@ -43,6 +43,9 @@ public class KerriaConfig {
             String json = new String(Files.readAllBytes(PATH), StandardCharsets.UTF_8);
             Gson gson = new Gson();
             KerriaConfig config = gson.fromJson(json, KerriaConfig.class);
+            if (config == null) {
+                return createDefault();
+            }
             config.validate();
             return config;
         } catch (IOException | JsonSyntaxException e) {
