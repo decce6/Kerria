@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.4.0
+
+- Fixed performance issues when XyCraft is installed
+- Fixed incorrect default buffer size
+- Improved config validation
+- Fixed crash when using `EXT_direct_state_access` (Thanks @lunaynx!)
+
 ## 1.3.2
 
 Fixed "Resource Reload failed" errors.
