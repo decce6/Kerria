@@ -3,6 +3,8 @@ package me.decce.kerria;
 import com.mojang.blaze3d.platform.GlStateManager;
 import org.lwjgl.opengl.GL45C;
 
+import static org.lwjgl.opengl.ARBTextureStorage.glTextureStorage2DEXT;
+import static org.lwjgl.opengl.EXTDirectStateAccess.glTextureSubImage2DEXT;
 import static org.lwjgl.opengl.GL45C.*;
 
 public class CachedNativeImage {
@@ -12,9 +14,15 @@ public class CachedNativeImage {
         GlStateManager._pixelStore(GL_UNPACK_ROW_LENGTH, 0);
         GlStateManager._pixelStore(GL_UNPACK_SKIP_PIXELS, 0);
         GlStateManager._pixelStore(GL_UNPACK_SKIP_ROWS, 0);
-        glId = glCreateTextures(GL_TEXTURE_2D);
-        glTextureStorage2D(glId, 1, GL_RGBA8, width, height);
-        glTextureSubImage2D(glId, 0, 0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
+        if (Kerria.getCapacity().useExtDirectStateAccess) {
+            glId = glGenTextures();
+            glTextureStorage2DEXT(glId, GL_TEXTURE_2D, 1, GL_RGBA8, width, height);
+            glTextureSubImage2DEXT(glId, GL_TEXTURE_2D, 0, 0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
+        } else {
+            glId = glCreateTextures(GL_TEXTURE_2D);
+            glTextureStorage2D(glId, 1, GL_RGBA8, width, height);
+            glTextureSubImage2D(glId, 0, 0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
+        }
     }
 
     public void delete() {
