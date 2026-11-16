@@ -8,6 +8,7 @@ public class GlCapacityChecker {
     public final boolean bufferStorage;
     public final boolean textureStorage;
     public final boolean directStateAccess;
+    public final boolean useExtDirectStateAccess;
 
     public final boolean supportsFastUpload;
     public final boolean supportsTextureCache;
@@ -23,9 +24,13 @@ public class GlCapacityChecker {
         /*textureStorage = capacity.GL_ARB_texture_storage;
         *///? }
         directStateAccess = capacity.GL_ARB_direct_state_access || capacity.GL_EXT_direct_state_access;
+        useExtDirectStateAccess = !opengl45 && !capacity.GL_ARB_direct_state_access && capacity.GL_EXT_direct_state_access;
 
         supportsFastUpload = opengl45 || (directStateAccess && bufferStorage);
         supportsTextureCache = opengl45 || (directStateAccess && copyImage && textureStorage);
+        if (useExtDirectStateAccess && (supportsFastUpload || supportsTextureCache)) {
+            Kerria.LOGGER.info("Using EXT_direct_state_access fallback");
+        }
         if (!supportsFastUpload) {
             Kerria.LOGGER.info("Fast Texture Upload is not supported (OpenGL45={}, DirectStateAccess={}, BufferStorage={})", opengl45, directStateAccess, bufferStorage);
         }
